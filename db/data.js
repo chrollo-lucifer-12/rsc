@@ -1,15 +1,15 @@
-import { Database } from "bun:sqlite";
+import Database from "better-sqlite3";
 
 const db = new Database("db/app.db");
 
 const delay = () =>
   new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 5000);
+    setTimeout(resolve, 5000);
   });
 
-export async function getUsers() {
+export async function getUsers(name) {
   await delay();
-  return db.query("SELECT * FROM users").all();
+
+  const stmt = db.prepare("SELECT * FROM users WHERE name LIKE ?");
+  return stmt.all(`%${name}%`);
 }

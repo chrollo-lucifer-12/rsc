@@ -1,12 +1,16 @@
 import { Suspense } from "react";
 import { getUsers } from "./db/data";
+import { Search } from "./search";
 
-export async function App() {
-  const usersPromise = getUsers();
+export async function App({ searchParams }) {
+  console.log(searchParams);
+  const query = searchParams.get("query") ?? "";
+  const usersPromise = getUsers(query);
 
   return (
     <div>
       <h1>list of all users</h1>
+      <Search query={query} />
       <Suspense fallback={<div>loading...</div>}>
         <UsersList usersPromise={usersPromise} />
       </Suspense>
