@@ -1,12 +1,7 @@
 import { Database } from "bun:sqlite";
 
-async function getUsers() {
-  return new Promise((resolve, reject) => {
-    try {
-      const users = db.query("SELECT * FROM users").all();
-      resolve(users);
-    } catch (err) {
-      reject(err);
-    }
-  });
+const db = new Database("db/app.db");
+
+export async function getUsers() {
+  return db.query("SELECT * FROM users").all();
 }

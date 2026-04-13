@@ -1,7 +1,7 @@
-import { getData } from "./db/data";
+import { getUsers } from "./db/data";
 
 export async function App() {
-  const users = await getData();
+  const users = await getUsers();
 
   return (
     <div>
