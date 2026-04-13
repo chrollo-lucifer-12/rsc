@@ -1,3 +1,22 @@
-export function App() {
-  return <h1>my rsc framework</h1>;
+import { getData } from "./db/data";
+
+export async function App() {
+  const users = await getData();
+
+  return (
+    <div>
+      <h1>list of all users</h1>
+
+      <ul>
+        {users.map((user) => {
+          return (
+            <li key={user.id}>
+              {user.name}
+              {user.email}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
 }
